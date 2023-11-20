@@ -258,13 +258,20 @@ delta  = dt.timedelta(hours=12)
 #   Exercises (5 mins each)
 # ----------------------------------------------------------------------------
 # 1. For how many seconds have you been alive?
-birthdate = dt.datetime(2000, 12, 8)
-print(birthdate)
+bday = dt.datetime(2000, 12, 8,12,12)
+now = dt.datetime.now()
+altive = now - bday
+#secs = (altive.days*24*60*60)+altive.seconds
+secs = altive.total_seconds()
+utils.pprint(secs,'secs')
 
 
 
 # 2. How old will you be in 1,340 days
-
+fut = now + dt.timedelta(days=1340)
+altive = fut - bday
+age = altive.days/365
+utils.pprint(age,'age')
 
 # ---------------------------------------------------------------------------- 
 #   The `strftime` method
@@ -295,21 +302,23 @@ print(birthdate)
 # Create a datetime object representing
 #   2020-12-31 00:00:00
 # <example>
-#date = dt.datetime(year=2020, month=12, day=31, hour=0)
-#utils.pprint(date, "date is:")
+date = dt.datetime(year=2020, month=12, day=31, hour=0)
+utils.pprint(date, "date is:")
 # </example>
 
 # Convert to a **string** with the following formats
 #   2020-12-31
 #   Dec 31, 2020
-s1  = '?'
+s1 = date.strftime('%Y-%m-%d')
+utils.pprint(s1,'s1')
 # <example>
 #s1 = date.strftime('%Y-%m-%d')
 # </example>
 #print(s1)
-s2  = '?'
+s2  = date.strftime('%b %d, %Y')
 # <example>
 #s2 = date.strftime('%b %d, %Y')
+utils.pprint(s2,'s2')
 # </example>
 #print(s2)
 

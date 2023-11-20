@@ -220,7 +220,7 @@ df = pd.DataFrame(data={'close': ser, 'bday': bday}, index=dates)
 # The result will be 7.00
 
 label = '2020-01-10'
-res  = '?'
+res = ser.loc[label]
 printit(res, f"ser.loc[{label}]:")
 
 
@@ -254,7 +254,7 @@ label = '2020-01-30'
 #   2020-01-13    7.02  
 
 label_seq = ['2020-01-10', '2020-01-13']
-res  = '?'
+res = ser.loc[label_seq]
 printit(res, f"ser.loc[{label_seq}]")
 
 
@@ -295,7 +295,7 @@ label_seq = ['2020-01-10', '2020-01-11']
 # IMPORTANT: ENDPOINTS ARE INCLUDED!!!
 start = '2020-01-10'
 end = '2020-01-13'
-res  = '?'
+res = ser.loc[start:end]
 printit(res, f"ser.loc['{start}':'{end}']")
 
 
@@ -458,7 +458,7 @@ ser2 = ser.copy()
 #
 # The result should be 7.16
 pos = 0
-res  = '?'
+res = ser.iloc[0]
 printit(res, f"ser.iloc[{pos}]")
 
 # ------------------------------------------------------------
@@ -485,7 +485,7 @@ printit(res, f"ser.iloc[{pos}]")
 #   2020-01-06    7.00
 
 pos_seq = [0, 2]
-res = '?'
+res = ser.iloc[pos_seq]
 printit(res, f"ser.iloc[{pos_seq}]")
 
 # ------------------------------------------------------------
@@ -518,7 +518,7 @@ printit(res, f"ser.iloc[{pos_seq}]")
 # Try it first!
 start = 0
 end = 2
-res  = '?'
+res = ser.iloc[start:end]
 printit(res, f"ser.iloc[{start}:{end}]:")
 
 # 
@@ -643,7 +643,7 @@ printit(res, f"ser.iloc[{start}:{end}]")
 # df.loc[row label, col label] --> scalar
 rlabel = '2020-01-02'
 clabel = 'close'
-res  = '?'
+res = df.loc[rlabel, clabel]
 printit(res, f"df.loc[{rlabel}, {clabel}]")
 
 # Task: Suppose we want to select the following SERIES
@@ -653,8 +653,8 @@ printit(res, f"df.loc[{rlabel}, {clabel}]")
 #   
 # df.loc[row label] --> df.loc[row label, :]
 # In both cases, the result is a SERIES
-res1 = '?'
-res2 = '?'
+res1 = df.loc[rlabel, :]
+res2 = df.loc[rlabel]
 printit(res1, f"This is df.loc['{rlabel}', :]")
 printit(res2, f"This is df.loc['{rlabel}']")
 
@@ -684,7 +684,7 @@ printit(res2, f"This is df.loc['{rlabel}']")
 # 2020-01-15    7.04
 #
 
-res = '?'
+res = df.loc[:, 'close']
 printit(res, f"df.loc[:, 'close']")
 
 
@@ -734,7 +734,7 @@ printit(res, f"df.loc[:, 'close']")
 
 rlabel_seq = ['2020-01-02', '2020-01-06']
 clabel = 'close'
-res = '?'
+res = df.loc[rlabel_seq, clabel]
 printit(res, f"df.loc[{rlabel_seq}, '{clabel}'] is:")
 
 
@@ -753,7 +753,7 @@ printit(res, f"df.loc[{rlabel_seq}, '{clabel}'] is:")
 # 2. df.loc[seq labels, [label] ]
 rlabel_seq = ['2020-01-02', '2020-01-06']
 clabel = 'close'
-res = '?'
+res = df.loc[ rlabel_seq, [clabel] ]
 printit(res, f"df.loc[{rlabel_seq}, ['{clabel}'] ] is:")
 
 # So, we will only get a data frame if both row and column indexers are either
@@ -793,7 +793,7 @@ clabel = 'close'
 clabel_seq = ['close', 'bday'] 
 
 # 3. df.loc[ [label], seq labels]
-res = '?'
+res = df.loc[ ['2020-01-02'], ['close', 'bday'] ]
 printit(res, f"df.loc[ ['{rlabel}'], {clabel_seq}]")
 
 # Suppose next, we wan the result to be a series with index equal to ['close',
@@ -808,7 +808,7 @@ printit(res, f"df.loc[ ['{rlabel}'], {clabel_seq}]")
 
 # 4. df.loc[ label, seq labels]
 
-res = '?'
+res = df.loc[ '2020-01-02', ['close', 'bday'] ]
 printit(res, f"df.loc[ '{rlabel}', {clabel_seq}]")
 
 
@@ -835,7 +835,9 @@ printit(res, f"df.loc[ '{rlabel}', {clabel_seq}]")
 # 'bday':'close'
 #
 # But this will not work:
-res  = '?'
+res = df.loc[\
+      '2020-01-10':'2020-01-15',
+      'bday':'close']
 printit(res, f"df.loc['2020-01-10':'2020-01-15','bday':'close']")
 
 # The result is an empty DF. This is because the order of the columns in 
@@ -883,7 +885,7 @@ printit(res, f"df.loc['2020-01-10':'2020-01-15','bday':'close']")
 #   2020-01-14     9
 #   2020-01-15    10
 # ----------------------------------------------------------------------------
-res = '?'
+res = df.loc['2020-01-10':'2020-01-15', 'bday']
 printit(res)
 
 
@@ -894,7 +896,7 @@ printit(res)
 #  bday     1.00
 # ----------------------------------------------------------------------------
 rlabel = '2020-01-02'
-res = '?'
+res = df.loc[rlabel, 'close':]
 printit(res)
 
 
@@ -937,7 +939,7 @@ printit(res)
 #   2020-01-15   7.04        10
 #
 # The result should be 7.19
-res = '?'
+res = df.iloc[1, 0]
 printit(res)
 
 # Exercise: Use df.iloc[pos] to select the last row of df, which will be the
@@ -946,7 +948,7 @@ printit(res)
 #   close     7.04
 #   bday     10.00
 #
-res = '?'
+res = df.iloc[-1]   # Or df.iloc[-1, :]
 printit(res)
 
 # ----------------------------------------------------------------------------
@@ -972,7 +974,7 @@ printit(res)
 #   2020-01-14     9   7.11
 #   2020-01-15    10   7.04
 #
-res1 = '?'
+res1 = df.iloc[:, ::-1]
 
 printit(res1)
 
@@ -982,7 +984,7 @@ printit(res1)
 #
 #   2020-01-14    7.11
 #   2020-01-15    7.04
-res2  = '?'
+res2 = df.iloc[-2:, 0]
 printit(res2)
 
 
@@ -992,7 +994,7 @@ printit(res2)
 # 2020-01-02   7.16     1
 # 2020-01-03   7.19     2
 #
-res3  = '?'
+res3 = df.iloc[:2]
 printit(res3)
 
 
@@ -1018,7 +1020,7 @@ printit(res3)
 #   2020-01-13   7.02     8
 #   2020-01-14   7.11     9
 #   2020-01-15   7.04    10
-res1  = '?'
+res1 = df.iloc[1:]
 printit(res1)
 
 
@@ -1038,7 +1040,7 @@ printit(res1)
 #   2020-01-15    10
 #
 
-res2  = '?'
+res2 = df.iloc[:, -1:]
 printit(res2)
 
 
@@ -1048,13 +1050,13 @@ printit(res2)
 # 2020-01-02   7.16     1
 # 2020-01-03   7.19     2
 #
-res3  = '?'
+res3 = df.iloc[:2]
 printit(res3)
 
 
 # 4. A df with the last 100 (one hundred) rows from df (assume you don't know how many
 #   rows the data frame df has)
-res4  = '?'
+res4 = df.iloc[-100:]
 printit(res4)
 
 
@@ -1084,7 +1086,7 @@ printit(res4)
 # 2020-01-13    7.02
 # 2020-01-14    7.11
 # 2020-01-15    7.04
-res = '?'
+res  = df['close']
 printit(res)
 
 
@@ -1106,7 +1108,7 @@ printit(res)
 # 2020-01-15    10   7.04
 #
 clabel_seq = ['bday', 'close'] 
-res = '?'
+res = df[clabel_seq]
 printit(res)
 
 
@@ -1125,7 +1127,7 @@ printit(res)
 #
 rstart = '2020-01-10'
 rend = '2020-01-15'
-res = '?'
+res = df[rstart:rend]
 printit(res)
 
 
